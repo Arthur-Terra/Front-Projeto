@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router'; // Corrigi a importação do router
+import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -27,7 +27,7 @@ export default function PAGE() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      
+
       {/* Título */}
       <Text style={styles.title}>Alexandria</Text>
 
@@ -37,18 +37,9 @@ export default function PAGE() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <Pressable
-            onPress={() =>
-              router.push({
-                pathname: `books/${item.id}`,
-                params: {
-                  id: item.id,
-                  title: item.title,
-                  author: item.author,
-                  year: item.year,
-                  qtd: item.qtd,
-                },
-              })
-            }
+            onPress={() => {
+              router.push(`/books/${item.id}`); // Navegação para a página de detalhes
+            }}
             style={styles.pressableButton}
           >
             <Text style={styles.pressableText}>{item.title}</Text>

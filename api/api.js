@@ -1,57 +1,74 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const BASE_URL = 'http://localhost:5287/api/Biblioteca'; // Certifique-se de que esse URL é correto
 
-const app = express();
-const PORT = 5287; // Porta ajustada para corresponder à URL fornecida
+// Função para fazer GET
+export const getRequest = async () => {
+  try {
+    const response = await fetch(BASE_URL, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
-
-// Simulando um banco de dados em memória
-let livros = [];
-let idCounter = 1;
-
-// Rotas
-// GET: Retorna todos os livros
-app.get('/api/Biblioteca', (req, res) => {
-    res.json(livros);
-});
-
-// POST: Adiciona um novo livro
-app.post('/api/Biblioteca', (req, res) => {
-    const { title, author, year } = req.body;
-
-    if (!title || !author || !year) {
-        return res.status(400).json({ error: 'Título, autor e ano são obrigatórios!' });
+    if (!response.ok) {
+      throw new Error(`GET request failed with status ${response.status}`);
     }
 
-    const novoLivro = {
-        id: idCounter++,
-        title,
-        author,
-        year,
+    const textData = await response.text();
+    const data = JSON.parse(textData);
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+// Função para fazer POST
+export const postRequest = async (title, desc) => {
+  try {
+    let myBody = {
+      id: 0,
+      title: title,
+      description: desc,
     };
-    livros.push(novoLivro);
 
-    res.status(201).json(novoLivro);
-});
+    const response = await fetch(BASE_URL, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(myBody),
+    });
 
-// DELETE: Remove um livro pelo ID
-app.delete('/api/Biblioteca/:id', (req, res) => {
-    const { id } = req.params;
-    const livroIndex = livros.findIndex((livro) => livro.id === parseInt(id));
-
-    if (livroIndex === -1) {
-        return res.status(404).json({ error: 'Livro não encontrado!' });
+    if (!response.ok) {
+      throw new Error("Post request failed!");
     }
 
-    livros.splice(livroIndex, 1);
-    res.status(204).send(); // Sem conteúdo
-});
+    const textData = await response.text(); // Corrigido
+    return JSON.parse(textData);
 
-// Inicialização do servidor
-app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}/api/Biblioteca`);
-});
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+// Função para fazer DELETE
+export const deleteRequest = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Delete request failed!");
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
