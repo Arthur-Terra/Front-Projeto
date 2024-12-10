@@ -24,6 +24,11 @@ export const getRequest = async () => {
   }
 };
 
+
+
+
+
+
 // Função para fazer POST
 export const postRequest = async (title, desc) => {
   try {
@@ -33,7 +38,7 @@ export const postRequest = async (title, desc) => {
       description: desc,
     };
 
-    const response = await fetch(BASE_URL, {
+    const response = await fetch(BASE_URL/locar/{id}, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -53,6 +58,14 @@ export const postRequest = async (title, desc) => {
     throw error;
   }
 };
+
+
+
+
+
+
+
+
 
 // Função para fazer DELETE
 export const deleteRequest = async (id) => {

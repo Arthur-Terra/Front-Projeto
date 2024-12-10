@@ -1,11 +1,14 @@
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { getRequest } from '../api/api';
+import { useState, useEffect } from 'react';
 
-export default function PAGE() {
-  const router = useRouter(); // useRouter precisa ser chamado dentro do componente
+export default function PAGE() { // useRouter precisa ser chamado dentro do componente
 
   // Dados da lista (tabela de livros)
+  
+  /*
   const data = [
     { id: '1', title: 'Dom Casmurro', author: 'Machado de Assis', year: '1899', qtd: '2' },
     { id: '2', title: 'Memórias Póstumas de Brás Cubas', author: 'Machado de Assis', year: '1881', qtd: '3' },
@@ -23,6 +26,20 @@ export default function PAGE() {
     { id: '14', title: 'Sagarana', author: 'João Guimarães Rosa', year: '1946', qtd: '3' },
     { id: '15', title: 'Fogo Morto', author: 'José Lins do Rego', year: '1943', qtd: '1' },
   ];
+  */
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const resp = await postRequest();
+      setTask(resp)
+    } catch (ex) {
+      console.error(ex)
+    }
+  }
+
+  fetchData()
+}, [])
 
   return (
     <View style={styles.container}>
@@ -36,12 +53,13 @@ export default function PAGE() {
         data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Pressable
-            onPress={() => {
-              router.push(`/books/${item.id}`); // Navegação para a página de detalhes
-            }}
-            style={styles.pressableButton}
-          >
+          <Pressable onPress={()=>{
+            router.push({
+              pathname:"books/[id]",
+              params: {id: item.id}
+            })
+            
+          }}  style={styles.pressableButton}>
             <Text style={styles.pressableText}>{item.title}</Text>
           </Pressable>
         )}
