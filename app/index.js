@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 
 export default function PAGE() { // useRouter precisa ser chamado dentro do componente
 
+  const [livro, setLivro] = useState([]);
+
   // Dados da lista (tabela de livros)
   
   /*
@@ -31,8 +33,8 @@ export default function PAGE() { // useRouter precisa ser chamado dentro do comp
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const resp = await postRequest();
-      setTask(resp)
+      const resp = await getRequest();
+      setLivro(resp)
     } catch (ex) {
       console.error(ex)
     }
@@ -50,7 +52,7 @@ useEffect(() => {
 
       {/* Lista de Livros */}
       <FlatList
-        data={data}
+        data={livro}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <Pressable onPress={()=>{
@@ -60,7 +62,7 @@ useEffect(() => {
             })
             
           }}  style={styles.pressableButton}>
-            <Text style={styles.pressableText}>{item.title}</Text>
+            <Text style={styles.pressableText}>{item.titulo}</Text>
           </Pressable>
         )}
       />

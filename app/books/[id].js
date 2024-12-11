@@ -5,6 +5,9 @@ import { useState } from 'react';
 export default function BookDetails() {
     const router = useRouter();
     const { id } = useLocalSearchParams(); // Pega o id do livro passado na rota
+    const { autor } = useLocalSearchParams();
+    const { year } = useLocalSearchParams();
+    const [livro, setLivro] = useState([]);
 
     const [name, setName] = useState('');
     const [dob, setDob] = useState('');
@@ -19,7 +22,23 @@ export default function BookDetails() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Detalhes do Livro {id}</Text>
+            data={livro}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+                <Pressable onPress={() => {
+                    router.push({
+                        pathname: "books/[id]",
+                        params: { id: item.id }
+                    })
+
+                }} style={styles.pressableButton}>
+                    <Text style={styles.pressableText}>{item.titulo}</Text>
+                </Pressable>
+            )}
+
+
+            <Text style={styles.title}>Detalhes do Livro {id} {item.autor} </Text>
+
 
             {/* Inputs */}
             <TextInput
