@@ -5,30 +5,24 @@ import { useState } from 'react';
 export default function BookDetails() {
     const router = useRouter();
     const { id } = useLocalSearchParams(); // Pega o id do livro passado na rota
-    const { autor } = useLocalSearchParams();
-    const { year } = useLocalSearchParams();
     const [livro, setLivro] = useState([]);
 
     const [name, setName] = useState('');
     const [dob, setDob] = useState('');
 
     const handleRentBook = () => {
-        if (name && dob) {
-            alert(`Livro alugado para ${name}, nascido em ${dob}!`);
-        } else {
-            alert('Por favor, preencha seu nome e data de nascimento.');
-        }
+       
     };
 
     return (
         <View style={styles.container}>
             data={livro}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.autor}
             renderItem={({ item }) => (
                 <Pressable onPress={() => {
                     router.push({
-                        pathname: "books/[id]",
-                        params: { id: item.id }
+                        pathname: "books/[autor]",
+                        params: { autor: item.autor }
                     })
 
                 }} style={styles.pressableButton}>
@@ -37,7 +31,7 @@ export default function BookDetails() {
             )}
 
 
-            <Text style={styles.title}>Detalhes do Livro {id} {item.autor} </Text>
+            <Text style={styles.title}>Detalhes do Livro {id} {autor} </Text>
 
 
             {/* Inputs */}

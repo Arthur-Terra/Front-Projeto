@@ -25,6 +25,42 @@ export const getRequest = async () => {
 };
 
 
+
+
+
+
+
+
+export const getRequestId = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`GET request failed with status ${response.status}`);
+    }
+
+    const textData = await response.text();
+    const data = JSON.parse(textData);
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+
+
+
+
+
+
+
 //item
 
 
@@ -33,7 +69,7 @@ export const getRequest = async () => {
 export const postRequest = async (title, desc) => {
   try {
     let myBody = {
-      id: 0,
+      id: id,
       title: title,
       description: desc,
     };
