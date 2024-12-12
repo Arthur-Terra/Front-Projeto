@@ -95,36 +95,43 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#C0C0C0', // Fundo prata
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
+        color: '#333', // Texto em cinza escuro
     },
     input: {
         width: '80%',
         height: 50,
-        borderColor: '#ccc',
+        borderColor: '#A0522D', // Bordas marrons (Sienna)
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 10,
         marginBottom: 15,
         fontSize: 16,
+        backgroundColor: '#FFF', // Fundo branco
     },
     button: {
         width: '80%',
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#A0522D', // Fundo marrom (Sienna)
         padding: 15,
         borderRadius: 8,
         alignItems: 'center',
         marginBottom: 10,
     },
     backButton: {
-        backgroundColor: '#757575',
+        backgroundColor: '#FF0000', // Fundo vermelho para o botão "Voltar"
+        width: '80%',
+        padding: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginBottom: 10,
     },
     buttonText: {
-        color: '#fff',
+        color: '#FFF', // Texto branco
         fontSize: 16,
         fontWeight: 'bold',
     },

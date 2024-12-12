@@ -55,7 +55,7 @@ useEffect(() => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#C0C0C0',
     paddingTop: 50,
     paddingHorizontal: 20,
   },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   pressableButton: {
-    backgroundColor: '#4CAF50', // Verde
+    backgroundColor: '#A0522D', // Marrom (Sienna)
     padding: 15,
     borderRadius: 8,
     marginBottom: 10,
