@@ -5,8 +5,8 @@ import { getRequestId } from '../../api/api';
 import { router } from 'expo-router';
 
 export default function BookDetails() {
-    const { id } = useLocalSearchParams(); // Pega o id do livro passado na rota
-    const [livro, setLivro] = useState();
+    const { id } = useLocalSearchParams(); // Pega o id do livro passado na rota 
+    const [livro, setLivro] = useState([]);
     const [name, setName] = useState('');
     const [dob, setDob] = useState('');
 
@@ -35,9 +35,11 @@ export default function BookDetails() {
 
             <Text style={styles.title}>Autor : {livro.autor} </Text>
 
-            <Text style={styles.title}>Ano de Lançamento : {livro.anolancamento} </Text>
+            <Text style={styles.title}>Ano de Lançamento : {livro.anoLancamento} </Text>
 
-            <Text style={styles.title}>Quantidade Disponivel : {livro.QuantidadeDisponivel} </Text>
+            <Text style={styles.title}>QuantidadeDisponivel : {livro.quantidadeDisponivel} </Text>
+
+            <Text style={styles.title}>Id : {id} </Text>
 
 
             
