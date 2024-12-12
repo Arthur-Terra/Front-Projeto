@@ -57,7 +57,7 @@ export const getRequestId = async (id) => {
 
 
 
-
+//locar
 
 
 
@@ -73,7 +73,7 @@ export const postRequest = async (id, nome, ano) => {
       anoNascimento: ano,
     };
 
-    const response = await fetch(BASE_URL/locar/{id}, {
+    const response = await fetch(`${BASE_URL}/locar`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -93,7 +93,36 @@ export const postRequest = async (id, nome, ano) => {
     throw error;
   }
 };
-
+/*
+export const postRequest = async (id, nome, anoNasc) => {
+    try {
+      let myBody = {
+        id: id,
+        nome: nome,
+        anoNasc: anoNasc,
+      };
+      
+      const response = await fetch(BASE_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(myBody),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`POST request failed with status: ${response.status}`);
+      }
+  
+      const textData = await response.text();
+      const data = JSON.parse(textData);
+      return data;
+    } catch (error) {
+      console.error("Error during POST request:", error);
+      throw error;
+    }
+  };
+*/
 
 
 

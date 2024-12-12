@@ -1,7 +1,7 @@
 import { useRouter, useLocalSearchParams } from 'expo-router'; // Para pegar o parâmetro do id
-import { StyleSheet, Text, TextInput, View, Pressable } from 'react-native';
-import { useState,  useEffect } from 'react';
-import { getRequestId } from '../../api/api';
+import { StyleSheet, Text, TextInput, View, Pressable, TouchableOpacity } from 'react-native';
+import { useState, useEffect } from 'react';
+import { getRequestId, postRequest } from '../../api/api';
 import { router } from 'expo-router';
 
 export default function BookDetails() {
@@ -23,14 +23,32 @@ export default function BookDetails() {
 
         fetchData()
     }, [])
-
-    const alugar = () =>{
-
-    }
+    //locar
+    const alugar = async (id, nome, ano) => {
+        try {
+            if (livro.quantidadeDisponivel <= 0) {
+                alert("Livro não está disponível!");
+                return;
+            }
+    
+            // Faz o POST para alugar o livro
+            await postRequest(id, nome, ano);
+    
+            // Busca os dados atualizados do livro
+            const updatedBook = await getRequestId(id);
+            setLivro(updatedBook);
+    
+            alert("Livro locado com sucesso!");
+        } catch (error) {
+            console.error("Erro ao locar o livro:", error);
+            alert("Não foi possível locar o livro. Tente novamente.");
+        }
+    };
+    
 
     return (
         <View style={styles.container}>
-            
+
             <Text style={styles.title}>Detalhes do Livro </Text>
 
             <Text style={styles.title}>Autor : {livro.autor} </Text>
@@ -42,7 +60,7 @@ export default function BookDetails() {
             <Text style={styles.title}>Id : {id} </Text>
 
 
-            
+
             <TextInput
                 style={styles.input}
                 placeholder="Seu Nome"
@@ -57,9 +75,11 @@ export default function BookDetails() {
             />
 
             {/* Botão de Alugar */}
-            <Pressable style={styles.button} onPress={()=>{}}>
-                <Text style={styles.buttonText}>Alugar Livro</Text>
-            </Pressable>
+            <TouchableOpacity style={styles.button} onPress={() => alugar(id, name, dob)}>
+                <Text style={styles.buttonText}>Emprestar</Text>
+            </TouchableOpacity>
+
+            
 
             {/* Botão de Voltar */}
             <Pressable style={[styles.button, styles.backButton]} onPress={() => router.back()}>
