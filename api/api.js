@@ -86,7 +86,7 @@ export const postRequest = async (id, nome, ano) => {
       throw new Error("Post request failed!");
     }
 
-    const textData = await response.text(); // Corrigido
+    const textData = await response.text(); 
     return JSON.parse(textData);
 
   } catch (error) {
