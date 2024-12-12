@@ -69,8 +69,8 @@ export const postRequest = async (id, nome, ano) => {
   try {
     let myBody = {
       id: id,
-      nome: NomeLocatario,
-      ano: AnoNascimento,
+      nomeLocatario: nome,
+      anoNascimento: ano,
     };
 
     const response = await fetch(BASE_URL/locar/{id}, {
