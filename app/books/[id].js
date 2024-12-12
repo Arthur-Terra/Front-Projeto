@@ -51,6 +51,8 @@ export default function BookDetails() {
 
             <Text style={styles.title}>Detalhes do Livro </Text>
 
+            <Text style={styles.title}>Nome : {livro.titulo} </Text>
+
             <Text style={styles.title}>Autor : {livro.autor} </Text>
 
             <Text style={styles.title}>Ano de Lançamento : {livro.anoLancamento} </Text>

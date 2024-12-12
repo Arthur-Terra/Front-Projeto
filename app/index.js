@@ -9,21 +9,20 @@ export default function PAGE() { // useRouter precisa ser chamado dentro do comp
   const [livro, setLivro] = useState([]);
 
   // Dados da lista (tabela de livros)
-  
- 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const resp = await getRequest();
+        // Filtra os livros com quantidade disponível maior que zero
+        const livrosDisponiveis = resp.filter(item => item.quantidadeDisponivel > 0);
+        setLivro(livrosDisponiveis);
+      } catch (ex) {
+        console.error(ex);
+      }
+    };
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const resp = await getRequest();
-      setLivro(resp)
-    } catch (ex) {
-      console.error(ex)
-    }
-  }
-
-  fetchData()
-}, [])
+    fetchData();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -35,15 +34,17 @@ useEffect(() => {
       {/* Lista de Livros */}
       <FlatList
         data={livro}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()} // Certifique-se de que o ID é uma string
         renderItem={({ item }) => (
-          <Pressable onPress={()=>{
-            router.push({
-              pathname:"books/[id]",
-              params: {id: item.id}
-            })
-            
-          }}  style={styles.pressableButton}>
+          <Pressable
+            onPress={() => {
+              router.push({
+                pathname: "books/[id]",
+                params: { id: item.id }
+              });
+            }}
+            style={styles.pressableButton}
+          >
             <Text style={styles.pressableText}>{item.titulo}</Text>
           </Pressable>
         )}
