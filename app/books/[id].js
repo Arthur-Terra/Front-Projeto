@@ -1,11 +1,11 @@
-import { useRouter, useLocalSearchParams } from 'expo-router'; // Para pegar o parâmetro do id
+import { useRouter, useLocalSearchParams } from 'expo-router'; 
 import { StyleSheet, Text, TextInput, View, Pressable, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 import { getRequestId, postRequest } from '../../api/api';
 import { router } from 'expo-router';
 
 export default function BookDetails() {
-    const { id } = useLocalSearchParams(); // Pega o id do livro passado na rota 
+    const { id } = useLocalSearchParams();  
     const [livro, setLivro] = useState([]);
     const [name, setName] = useState('');
     const [dob, setDob] = useState('');
@@ -30,11 +30,9 @@ export default function BookDetails() {
                 alert("Livro não está disponível!");
                 return;
             }
-    
-            // Faz o POST para alugar o livro
+            
             await postRequest(id, nome, ano);
     
-            // Busca os dados atualizados do livro
             const updatedBook = await getRequestId(id);
             setLivro(updatedBook);
     

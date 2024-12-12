@@ -4,16 +4,16 @@ import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { getRequest } from '../api/api';
 import { useState, useEffect } from 'react';
 
-export default function PAGE() { // useRouter precisa ser chamado dentro do componente
+export default function PAGE() { 
 
   const [livro, setLivro] = useState([]);
 
-  // Dados da lista (tabela de livros)
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const resp = await getRequest();
-        // Filtra os livros com quantidade disponível maior que zero
+        
         const livrosDisponiveis = resp.filter(item => item.quantidadeDisponivel > 0);
         setLivro(livrosDisponiveis);
       } catch (ex) {
@@ -28,13 +28,13 @@ export default function PAGE() { // useRouter precisa ser chamado dentro do comp
     <View style={styles.container}>
       <StatusBar style="auto" />
 
-      {/* Título */}
+     
       <Text style={styles.title}>Alexandria</Text>
 
-      {/* Lista de Livros */}
+      
       <FlatList
         data={livro}
-        keyExtractor={(item) => item.id.toString()} // Certifique-se de que o ID é uma string
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <Pressable
             onPress={() => {

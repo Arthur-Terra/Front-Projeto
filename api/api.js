@@ -1,6 +1,6 @@
-const BASE_URL = 'http://localhost:5287/api/Biblioteca'; // Certifique-se de que esse URL é correto
+const BASE_URL = 'http://localhost:5287/api/Biblioteca'; 
 
-// Função para fazer GET
+
 export const getRequest = async () => {
   try {
     const response = await fetch(BASE_URL, {
@@ -28,7 +28,8 @@ export const getRequest = async () => {
 
 
 
-//autor
+
+
 
 
 export const getRequestId = async (id) => {
@@ -57,14 +58,14 @@ export const getRequestId = async (id) => {
 
 
 
-//locar
 
 
 
 
 
 
-// Função para fazer POST
+
+
 export const postRequest = async (id, nome, ano) => {
   try {
     let myBody = {
@@ -93,36 +94,6 @@ export const postRequest = async (id, nome, ano) => {
     throw error;
   }
 };
-/*
-export const postRequest = async (id, nome, anoNasc) => {
-    try {
-      let myBody = {
-        id: id,
-        nome: nome,
-        anoNasc: anoNasc,
-      };
-      
-      const response = await fetch(BASE_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(myBody),
-      });
-      
-      if (!response.ok) {
-        throw new Error(`POST request failed with status: ${response.status}`);
-      }
-  
-      const textData = await response.text();
-      const data = JSON.parse(textData);
-      return data;
-    } catch (error) {
-      console.error("Error during POST request:", error);
-      throw error;
-    }
-  };
-*/
 
 
 
@@ -131,7 +102,10 @@ export const postRequest = async (id, nome, anoNasc) => {
 
 
 
-// Função para fazer DELETE
+
+
+
+
 export const deleteRequest = async (id) => {
   try {
     const response = await fetch(`${BASE_URL}/${id}`, {
