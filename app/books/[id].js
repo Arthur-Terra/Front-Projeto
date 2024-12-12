@@ -1,40 +1,46 @@
 import { useRouter, useLocalSearchParams } from 'expo-router'; // Para pegar o parâmetro do id
 import { StyleSheet, Text, TextInput, View, Pressable } from 'react-native';
-import { useState } from 'react';
+import { useState,  useEffect } from 'react';
+import { getRequestId } from '../../api/api';
+import { router } from 'expo-router';
 
 export default function BookDetails() {
-    const router = useRouter();
     const { id } = useLocalSearchParams(); // Pega o id do livro passado na rota
-    const [livro, setLivro] = useState([]);
-
+    const [livro, setLivro] = useState();
     const [name, setName] = useState('');
     const [dob, setDob] = useState('');
 
-    const handleRentBook = () => {
-       
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const resp = await getRequestId(id);
+                console.log(resp)
+                setLivro(resp)
+            } catch (ex) {
+                console.error(ex)
+            }
+        }
+
+        fetchData()
+    }, [])
+
+    const alugar = () =>{
+
+    }
 
     return (
         <View style={styles.container}>
-            data={livro}
-            keyExtractor={(item) => item.autor}
-            renderItem={({ item }) => (
-                <Pressable onPress={() => {
-                    router.push({
-                        pathname: "books/[autor]",
-                        params: { autor: item.autor }
-                    })
+            
+            <Text style={styles.title}>Detalhes do Livro </Text>
 
-                }} style={styles.pressableButton}>
-                    <Text style={styles.pressableText}>{item.titulo}</Text>
-                </Pressable>
-            )}
+            <Text style={styles.title}>Autor : {livro.autor} </Text>
+
+            <Text style={styles.title}>Ano de Lançamento : {livro.anolancamento} </Text>
+
+            <Text style={styles.title}>Quantidade Disponivel : {livro.QuantidadeDisponivel} </Text>
 
 
-            <Text style={styles.title}>Detalhes do Livro {id} {autor} </Text>
-
-
-            {/* Inputs */}
+            
             <TextInput
                 style={styles.input}
                 placeholder="Seu Nome"
@@ -49,7 +55,7 @@ export default function BookDetails() {
             />
 
             {/* Botão de Alugar */}
-            <Pressable style={styles.button} onPress={handleRentBook}>
+            <Pressable style={styles.button} onPress={()=>{}}>
                 <Text style={styles.buttonText}>Alugar Livro</Text>
             </Pressable>
 

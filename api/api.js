@@ -61,17 +61,16 @@ export const getRequestId = async (id) => {
 
 
 
-//item
 
 
 
 // Função para fazer POST
-export const postRequest = async (title, desc) => {
+export const postRequest = async (id, nome, ano) => {
   try {
     let myBody = {
       id: id,
-      title: title,
-      description: desc,
+      nome: NomeLocatario,
+      ano: AnoNascimento,
     };
 
     const response = await fetch(BASE_URL/locar/{id}, {
